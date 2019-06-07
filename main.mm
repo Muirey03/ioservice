@@ -33,8 +33,8 @@ int main(int argc, char** argv, char** envp)
 		io_iterator_t children;
 		kr = IORegistryEntryGetChildIterator(service, kIOServicePlane, &children);
 		
-		io_registry_entry_t child;
-		while (children != IO_OBJECT_NULL && (child = IOIteratorNext(children)))
+		io_registry_entry_t child = IO_OBJECT_NULL;
+		while (kr == KERN_SUCCESS && (child = IOIteratorNext(children)))
 		{
 			io_name_t child_name;
 			IORegistryEntryGetName(child, child_name);
@@ -52,11 +52,17 @@ int main(int argc, char** argv, char** envp)
 				IOServiceClose(conns[i]);
 		}
 	}
+	else
+	{
+		printf("Unable to open service: %s\n", service_name);
+		return -1;
+	}
 
 	//print all matching clients:
 	if (foundClients.count == 0)
 	{
 		printf("Unable to find clients for service: %s\n", service_name);
+		return -1;
 	}
 	else
 	{
