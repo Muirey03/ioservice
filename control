@@ -1,0 +1,10 @@
+Package: com.muirey03.ioservice
+Name: ioservice
+Depends: 
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Find the IOUserClients belonging to an IOService
+Maintainer: Muirey03
+Author: Muirey03
+Section: System
+Tag: role::hacker
